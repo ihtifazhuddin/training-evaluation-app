@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { fetchAccessToken } from "./components/AccessToken";
 
-function App() {
+// Common pages
+import LoginPage from "./common/LoginPage";
+import NoPage from "./common/NoPage";
+
+// Staff pages
+import TrainingListPage from "./staff/pages/TrainingListPage";
+import EvaluationListPage from "./staff/pages/EvaluationListPage";
+import WriteEvaluation from "./staff/pages/WriteEvaluationPage";
+import ReviewDocument from "./staff/pages/ReviewDocumentPage";
+
+// HR pages
+import EvaluationListPage2 from "./hr/pages/EvaluationListPage";
+// import { GetPreviewLink } from "./hr/components/GetPreviewLink";
+
+const App = () => {
+  useEffect(() => {
+    fetchAccessToken();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NoPage />} />
+
+        {/* Staff pages */}
+        <Route path="/staff/trainings" element={<TrainingListPage />} />
+        <Route path="/staff/evaluations" element={<EvaluationListPage />} />
+        <Route path="/staff/writeevaluation/" element={<WriteEvaluation />} />
+        <Route path="/staff/review" element={<ReviewDocument />} />
+
+        {/* HR pages */}
+        <Route path="/hr/evaluations" element={<EvaluationListPage2 />} />
+        {/* <Route path="/test/:contractnum" element={<GetPreviewLink />} /> */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
