@@ -14,7 +14,6 @@ import ReviewDocument from "./staff/pages/ReviewDocumentPage";
 
 // HR pages
 import EvaluationListPage2 from "./hr/pages/EvaluationListPage";
-// import { GetPreviewLink } from "./hr/components/GetPreviewLink";
 
 const App = () => {
   useEffect(() => {
