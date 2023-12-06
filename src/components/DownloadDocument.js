@@ -2,6 +2,10 @@ export const DownloadDocument = async () => {
   const accessToken = localStorage.getItem("access_token");
   const contractnum = localStorage.getItem("contractnum");
 
+  // To name the downloaded file
+  const training_name = localStorage.getItem("training_name");
+  const staff_name = localStorage.getItem("staff_name");
+
   const handleDownload = (dataStreamBytes) => {
     // Decode base64 to bytes
     const dataStreamBytesForBlob = new Uint8Array(
@@ -18,7 +22,15 @@ export const DownloadDocument = async () => {
     // Create a download link
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "file.pdf";
+
+    // Set the file name
+    const currentDate = new Date()
+      .toISOString()
+      .slice(2, 19)
+      .replace(/[-T:]/g, "");
+    const formattedTrainingName = training_name.replace(/\s/g, "");
+    const formattedStaffName = staff_name.replace(/\s/g, "");
+    link.download = `${currentDate}-${formattedTrainingName}-${formattedStaffName}.pdf`;
 
     // Append the link to the body
     document.body.appendChild(link);
@@ -28,8 +40,6 @@ export const DownloadDocument = async () => {
 
     // Remove the link from the body
     document.body.removeChild(link);
-
-    return "Download is successful";
   };
 
   try {
@@ -47,11 +57,10 @@ export const DownloadDocument = async () => {
 
     // Handle the response
     if (responseData.result === 0) {
-      console.log("Get data stream byte is successful");
+      console.log("Successfully get data stream byte");
       handleDownload(responseData.data);
     } else {
-      console.error("Get data stream byte is failed");
-      return "Get data stream byte is failed";
+      console.error("Fail to get data stream byte");
     }
   } catch (error) {
     console.error("Error during API call:", error);

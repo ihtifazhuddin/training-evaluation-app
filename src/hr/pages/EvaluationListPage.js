@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import MainLayout from "../../common/MainLayout";
 import AutoSign from "../../components/AutoSign";
-import { DownloadDocument } from "../../components/DownloadDocument";
-import { GetPreviewLink } from "../../components/GetPreviewLink";
 import { UpdateEvaluation } from "../../components/UpdateEvaluation";
+import { GetPreviewLink } from "../../components/GetPreviewLink";
+import { DownloadDocument } from "../../components/DownloadDocument";
 
 export default function EvaluationListPage() {
   const [evaluationData, setEvaluationData] = useState([]);
@@ -51,13 +51,13 @@ export default function EvaluationListPage() {
       });
   };
 
-  const handleDownload = (contractnum) => {
+  const handleDownload = (contractnum, training_name, staff_name) => {
     localStorage.setItem("contractnum", contractnum);
+    localStorage.setItem("training_name", training_name);
+    localStorage.setItem("staff_name", staff_name);
     console.log("Downloading...");
     DownloadDocument()
-      .then((result) => {
-        window.alert(result);
-      })
+      .then()
       .catch((error) => {
         console.error("Error during download:", error);
       });
@@ -178,7 +178,13 @@ export default function EvaluationListPage() {
                     style={{ marginLeft: "5px" }}
                     variant="contained"
                     color="primary"
-                    onClick={() => handleDownload(evaluation.contractnum)}
+                    onClick={() =>
+                      handleDownload(
+                        evaluation.contractnum,
+                        evaluation.training_name,
+                        evaluation.staff_name
+                      )
+                    }
                     disabled={evaluation.state === "Pending"}
                   >
                     Download

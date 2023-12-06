@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MainLayout from "../../common/MainLayout";
 import {
   Table,
   TableCell,
@@ -10,8 +9,9 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
-
+import MainLayout from "../../common/MainLayout";
 import { GetPreviewLink } from "../../components/GetPreviewLink";
+import { DownloadDocument } from "../../components/DownloadDocument";
 
 export default function EvaluationListPage() {
   const [evaluationData, setEvaluationData] = useState([]);
@@ -34,14 +34,16 @@ export default function EvaluationListPage() {
     });
   };
 
-  const handleDownload = (contractnum, state) => {
-    console.log("Download button is clicked");
-    if (state === "Completed") {
-      // Enable download functionality
-    } else if (state === "Pending") {
-      // Disable download functionality
-      return;
-    }
+  const handleDownload = (contractnum, training_name, staff_name) => {
+    localStorage.setItem("contractnum", contractnum);
+    localStorage.setItem("training_name", training_name);
+    localStorage.setItem("staff_name", staff_name);
+    console.log("Downloading...");
+    DownloadDocument()
+      .then()
+      .catch((error) => {
+        console.error("Error during download:", error);
+      });
   };
 
   return (
@@ -151,7 +153,11 @@ export default function EvaluationListPage() {
                     variant="contained"
                     color="primary"
                     onClick={() =>
-                      handleDownload(evaluation.contractnum, evaluation.state)
+                      handleDownload(
+                        evaluation.contractnum,
+                        evaluation.training_name,
+                        evaluation.staff_name
+                      )
                     }
                     disabled={evaluation.state === "Pending"}
                   >
