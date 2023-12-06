@@ -2,11 +2,13 @@ import React from "react";
 import EvaluationField from "../components/EvaluationField";
 import TrainingDetails from "../components/TrainingDetails";
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MainLayout from "../../common/MainLayout";
 import SignatureBox from "../components/SignatureBox";
 
 const WriteEvaluation = () => {
+  const navigate = useNavigate();
+
   const generateXLXS = async () => {
     const staff_name = localStorage.getItem("staff_name");
     const trainer_name = localStorage.getItem("training_trainer");
@@ -69,6 +71,7 @@ const WriteEvaluation = () => {
       if (responseData.result === "success") {
         console.log("API call successful:", responseData);
         localStorage.setItem("filename", responseData.data.filename);
+        navigate("/staff/review");
       } else {
         console.error("API call failed:", responseData);
       }
@@ -91,10 +94,8 @@ const WriteEvaluation = () => {
           variant="contained"
           color="primary"
           onClick={generateXLXS}
-          component={Link}
-          to={`/staff/review`}
         >
-          Review
+          Create
         </Button>
       </div>
     </MainLayout>

@@ -132,10 +132,10 @@ export default function TrainingListPage() {
                     variant="contained"
                     color="primary"
                     component={Link}
-                    to={`/staff/writeevaluation/`}
+                    to={`/staff/create/`}
                     onClick={() => handleSaveTrainingDetails(training)}
                   >
-                    Write Evaluation
+                    Create Evaluation
                   </Button>
                 </TableCell>
               </TableRow>

@@ -11,6 +11,8 @@ import {
   Button,
 } from "@mui/material";
 
+import { GetPreviewLink } from "../../components/GetPreviewLink";
+
 export default function EvaluationListPage() {
   const [evaluationData, setEvaluationData] = useState([]);
 
@@ -25,11 +27,21 @@ export default function EvaluationListPage() {
       });
   }, []);
 
-  const handleViewDocument = () => {
-    console.log("View document is clicked");
+  const handleViewDocument = (contractnum) => {
+    localStorage.setItem("contractnum", contractnum);
+    GetPreviewLink(contractnum).then((link) => {
+      window.open(link, "_blank");
+    });
   };
-  const handleAutoSign = () => {
-    console.log("Auto sign is clicked");
+
+  const handleDownload = (contractnum, state) => {
+    console.log("Download button is clicked");
+    if (state === "Completed") {
+      // Enable download functionality
+    } else if (state === "Pending") {
+      // Disable download functionality
+      return;
+    }
   };
 
   return (
@@ -130,7 +142,7 @@ export default function EvaluationListPage() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleViewDocument}
+                    onClick={() => handleViewDocument(evaluation.contractnum)}
                   >
                     View
                   </Button>
@@ -138,9 +150,12 @@ export default function EvaluationListPage() {
                     style={{ marginLeft: "5px" }}
                     variant="contained"
                     color="primary"
-                    onClick={handleAutoSign}
+                    onClick={() =>
+                      handleDownload(evaluation.contractnum, evaluation.state)
+                    }
+                    disabled={evaluation.state === "Pending"}
                   >
-                    Auto Sign
+                    Download
                   </Button>
                 </TableCell>
               </TableRow>

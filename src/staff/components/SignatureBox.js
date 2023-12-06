@@ -43,6 +43,8 @@ const SignatureBox = () => {
           <TableRow>
             <TableCell>
               <Typography id="signstaff" style={{ fontSize: "15px" }}>
+                <br />
+                <br />
                 Name: {staff_name}
               </Typography>
               <Typography style={{ fontSize: "15px" }}>
@@ -52,6 +54,8 @@ const SignatureBox = () => {
 
             <TableCell>
               <Typography id="signhr" style={{ fontSize: "15px" }}>
+                <br />
+                <br />
                 Name: {hr_name}
               </Typography>
               <Typography style={{ fontSize: "15px" }}>

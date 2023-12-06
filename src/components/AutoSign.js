@@ -33,8 +33,11 @@ const AutoSign = async () => {
     // Handle the response
     if (responseData.result === 0) {
       console.log("Auto Sign is successful:", responseData);
+
+      return "Auto sign is successful";
     } else {
       console.error("Auto Sign is failed:", responseData);
+      return "Auto sign is failed";
     }
   } catch (error) {
     console.error("Error during API call:", error);

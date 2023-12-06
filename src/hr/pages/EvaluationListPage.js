@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MainLayout from "../../common/MainLayout";
-import { GetPreviewLink } from "../../components/GetPreviewLink";
-import AutoSign from "../../components/AutoSign";
 import {
   Table,
   TableCell,
@@ -12,6 +9,9 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
+import MainLayout from "../../common/MainLayout";
+import AutoSign from "../../components/AutoSign";
+import { GetPreviewLink } from "../../components/GetPreviewLink";
 import { UpdateEvaluation } from "../../components/UpdateEvaluation";
 
 export default function EvaluationListPage() {
@@ -38,13 +38,26 @@ export default function EvaluationListPage() {
   const handleAutoSign = (evaluation_id) => {
     localStorage.setItem("evaluation_id", evaluation_id);
     AutoSign()
-      .then(() => {
-        console.log("Auto sign successful");
+      .then((result) => {
+        window.alert(result);
         UpdateEvaluation();
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       })
       .catch((error) => {
         console.error("Error during auto sign:", error);
       });
+  };
+
+  const handleDownload = (contractnum, state) => {
+    console.log("Download button is clicked");
+    if (state === "Completed") {
+      // Enable download functionality
+    } else if (state === "Pending") {
+      // Disable download functionality
+      return;
+    }
   };
 
   return (
@@ -153,9 +166,21 @@ export default function EvaluationListPage() {
                     style={{ marginLeft: "5px" }}
                     variant="contained"
                     color="primary"
-                    onClick={handleAutoSign(evaluation.evaluation_id)}
+                    onClick={() => handleAutoSign(evaluation.evaluation_id)}
+                    disabled={evaluation.state === "Completed"}
                   >
                     Auto Sign
+                  </Button>
+                  <Button
+                    style={{ marginLeft: "5px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={() =>
+                      handleDownload(evaluation.contractnum, evaluation.state)
+                    }
+                    disabled={evaluation.state === "Pending"}
+                  >
+                    Download
                   </Button>
                 </TableCell>
               </TableRow>

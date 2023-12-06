@@ -9,7 +9,7 @@ import NoPage from "./common/NoPage";
 // Staff pages
 import TrainingListPage from "./staff/pages/TrainingListPage";
 import EvaluationListPage from "./staff/pages/EvaluationListPage";
-import WriteEvaluation from "./staff/pages/WriteEvaluationPage";
+import CreateEvaluationPage from "./staff/pages/CreateEvaluationPage";
 import ReviewDocument from "./staff/pages/ReviewDocumentPage";
 
 // HR pages
@@ -30,7 +30,7 @@ const App = () => {
         {/* Staff pages */}
         <Route path="/staff/trainings" element={<TrainingListPage />} />
         <Route path="/staff/evaluations" element={<EvaluationListPage />} />
-        <Route path="/staff/writeevaluation/" element={<WriteEvaluation />} />
+        <Route path="/staff/create/" element={<CreateEvaluationPage />} />
         <Route path="/staff/review" element={<ReviewDocument />} />
 
         {/* HR pages */}

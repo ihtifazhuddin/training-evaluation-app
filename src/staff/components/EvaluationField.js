@@ -56,14 +56,7 @@ const EvaluationField = () => {
   };
 
   const handleSetRating_7 = (event) => {
-    // const value = event.target.value;
     setRating_7(event.target.value);
-
-    // // Convert "Yes" to 1 and "No" to 0
-    // const numericValue = value === "Yes" ? 1 : 0;
-
-    // // Update local storage
-    // localStorage.setItem("rating_7", numericValue);
   };
 
   return (
