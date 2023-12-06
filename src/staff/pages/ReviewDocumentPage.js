@@ -5,6 +5,7 @@ import ExcelPreview from "../../components/ExcelPreviewToBytes";
 import UploadDocument from "../../components/UploadDocument";
 import AutoSign from "../../components/AutoSign";
 import { useNavigate } from "react-router-dom";
+import AddEvaluation from "../../components/AddEvaluation";
 
 const ReviewDocument = () => {
   const [filedata, setFiledata] = useState(null);
@@ -44,10 +45,10 @@ const ReviewDocument = () => {
     try {
       await UploadDocument(); // Wait for UploadDocument to complete
 
-      // Only run AutoSign if UploadDocument is successful
+      await AddEvaluation(); // Wait for AddEvaluation to complete
+
       await AutoSign(); // Wait for AutoSign to complete
 
-      // Only navigate to "/staff/evaluations" if AutoSign is successful
       navigate("/staff/evaluations");
     } catch (error) {
       console.error("Error submitting evaluation:", error);
