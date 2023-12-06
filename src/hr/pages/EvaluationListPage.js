@@ -43,7 +43,7 @@ export default function EvaluationListPage() {
         UpdateEvaluation();
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((error) => {
         console.error("Error during auto sign:", error);
