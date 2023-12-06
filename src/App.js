@@ -15,6 +15,8 @@ import ReviewDocument from "./staff/pages/ReviewDocumentPage";
 // HR pages
 import EvaluationListPage2 from "./hr/pages/EvaluationListPage";
 
+// test
+
 const App = () => {
   useEffect(() => {
     fetchAccessToken();
@@ -35,7 +37,7 @@ const App = () => {
 
         {/* HR pages */}
         <Route path="/hr/evaluations" element={<EvaluationListPage2 />} />
-        {/* <Route path="/test/:contractnum" element={<GetPreviewLink />} /> */}
+        {/* <Route path="/test/" element={<DownloadDocument />} /> */}
       </Routes>
     </Router>
   );

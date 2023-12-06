@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import MainLayout from "../../common/MainLayout";
 import AutoSign from "../../components/AutoSign";
+import { DownloadDocument } from "../../components/DownloadDocument";
 import { GetPreviewLink } from "../../components/GetPreviewLink";
 import { UpdateEvaluation } from "../../components/UpdateEvaluation";
 
@@ -50,14 +51,16 @@ export default function EvaluationListPage() {
       });
   };
 
-  const handleDownload = (contractnum, state) => {
-    console.log("Download button is clicked");
-    if (state === "Completed") {
-      // Enable download functionality
-    } else if (state === "Pending") {
-      // Disable download functionality
-      return;
-    }
+  const handleDownload = (contractnum) => {
+    localStorage.setItem("contractnum", contractnum);
+    console.log("Downloading...");
+    DownloadDocument()
+      .then((result) => {
+        window.alert(result);
+      })
+      .catch((error) => {
+        console.error("Error during download:", error);
+      });
   };
 
   return (
@@ -175,9 +178,7 @@ export default function EvaluationListPage() {
                     style={{ marginLeft: "5px" }}
                     variant="contained"
                     color="primary"
-                    onClick={() =>
-                      handleDownload(evaluation.contractnum, evaluation.state)
-                    }
+                    onClick={() => handleDownload(evaluation.contractnum)}
                     disabled={evaluation.state === "Pending"}
                   >
                     Download
