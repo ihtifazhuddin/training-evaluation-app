@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress, ThemeProvider } from "@mui/material";
+import { createTheme, styled } from "@mui/material/styles";
 import MainLayout from "../../common/MainLayout";
 import ExcelPreview from "../../components/ExcelPreviewToBytes";
 import UploadDocument from "../../components/UploadDocument";
@@ -7,8 +8,31 @@ import AutoSign from "../../components/AutoSign";
 import { useNavigate } from "react-router-dom";
 import AddEvaluation from "../../components/AddEvaluation";
 
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#0063F7",
+    },
+  },
+});
+
+const StyledContainer = styled("div")({
+  margin: "20px",
+});
+
+const StyledButton = styled(Button)({
+  marginTop: "15px",
+  fontSize: "12px",
+});
+
+const StyledLoadingContainer = styled("div")({
+  textAlign: "center",
+  marginTop: "20px",
+});
+
 const ReviewDocument = () => {
   const [filedata, setFiledata] = useState(null);
+  const [loading, setLoading] = useState(true);
   const filename = localStorage.getItem("filename");
   const navigate = useNavigate();
 
@@ -33,10 +57,11 @@ const ReviewDocument = () => {
       }
     } catch (error) {
       console.error("Error during API call generateXLXSview:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     generateXLXSview(filename);
   }, [filename]);
@@ -56,24 +81,33 @@ const ReviewDocument = () => {
   };
 
   return (
-    <MainLayout>
-      <div>
-        {filedata ? (
-          <ExcelPreview base64String={filedata} />
-        ) : (
-          <p>Loading file preview...</p>
-        )}
-
-        <Button
-          style={{ marginLeft: "15px", marginTop: "5px", fontSize: "12px" }}
-          variant="contained"
-          color="primary"
-          onClick={submitEvaluation}
-        >
-          Submit and Sign
-        </Button>
-      </div>
-    </MainLayout>
+    <ThemeProvider theme={defaultTheme}>
+      <MainLayout>
+        <StyledContainer>
+          {loading ? (
+            <StyledLoadingContainer>
+              <CircularProgress />
+              <p>Loading file preview...</p>
+            </StyledLoadingContainer>
+          ) : (
+            <>
+              {filedata ? (
+                <ExcelPreview base64String={filedata} />
+              ) : (
+                <p>No file preview available</p>
+              )}
+              <StyledButton
+                variant="contained"
+                color="primary"
+                onClick={submitEvaluation}
+              >
+                Submit and Sign
+              </StyledButton>
+            </>
+          )}
+        </StyledContainer>
+      </MainLayout>
+    </ThemeProvider>
   );
 };
 

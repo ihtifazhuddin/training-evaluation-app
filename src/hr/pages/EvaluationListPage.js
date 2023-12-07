@@ -8,12 +8,30 @@ import {
   Paper,
   TableBody,
   Button,
+  ThemeProvider,
 } from "@mui/material";
+import { createTheme, styled } from "@mui/material/styles";
 import MainLayout from "../../common/MainLayout";
 import AutoSign from "../../components/AutoSign";
 import { UpdateEvaluation } from "../../components/UpdateEvaluation";
 import { GetPreviewLink } from "../../components/GetPreviewLink";
 import { DownloadDocument } from "../../components/DownloadDocument";
+
+const defaultTheme = createTheme();
+
+const StyledTableContainer = styled(TableContainer)({
+  marginTop: "20px",
+});
+
+const StyledTableCell = styled(TableCell)({
+  borderTop: "1px solid",
+  borderBottom: "1px solid",
+  textAlign: "center",
+});
+
+const StyledButton = styled(Button)({
+  margin: "5px",
+});
 
 export default function EvaluationListPage() {
   const [evaluationData, setEvaluationData] = useState([]);
@@ -64,137 +82,75 @@ export default function EvaluationListPage() {
   };
 
   return (
-    <MainLayout>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
+    <ThemeProvider theme={defaultTheme}>
+      <MainLayout>
+        <StyledTableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow
+                style={{ borderTop: "2px solid", borderBottom: "2px solid" }}
               >
-                Evaluation ID
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Training Title
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Staff Name
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                State
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  padding: "0 20px",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Actions
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {evaluationData.map((evaluation) => (
-              <TableRow key={evaluation.evaluation_id}>
-                <TableCell
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {evaluation.evaluation_id}
-                </TableCell>
-                <TableCell
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {evaluation.training_name}
-                </TableCell>
-                <TableCell
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {evaluation.staff_name}
-                </TableCell>
-                <TableCell
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {evaluation.state}
-                </TableCell>
-                <TableCell
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleViewDocument(evaluation.contractnum)}
-                  >
-                    View
-                  </Button>
-                  <Button
-                    style={{ marginLeft: "5px" }}
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleAutoSign(evaluation.evaluation_id)}
-                    disabled={evaluation.state === "Completed"}
-                  >
-                    Auto Sign
-                  </Button>
-                  <Button
-                    style={{ marginLeft: "5px" }}
-                    variant="contained"
-                    color="primary"
-                    onClick={() =>
-                      handleDownload(
-                        evaluation.contractnum,
-                        evaluation.training_name,
-                        evaluation.staff_name
-                      )
-                    }
-                    disabled={evaluation.state === "Pending"}
-                  >
-                    Download
-                  </Button>
-                </TableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Evaluation ID
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Training Title
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Staff Name
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  State
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Actions
+                </StyledTableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </MainLayout>
+            </TableHead>
+            <TableBody>
+              {evaluationData.map((evaluation) => (
+                <TableRow key={evaluation.evaluation_id}>
+                  <StyledTableCell>{evaluation.evaluation_id}</StyledTableCell>
+                  <StyledTableCell>{evaluation.training_name}</StyledTableCell>
+                  <StyledTableCell>{evaluation.staff_name}</StyledTableCell>
+                  <StyledTableCell>{evaluation.state}</StyledTableCell>
+                  <StyledTableCell>
+                    <StyledButton
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleViewDocument(evaluation.contractnum)}
+                    >
+                      View
+                    </StyledButton>
+                    <StyledButton
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleAutoSign(evaluation.evaluation_id)}
+                      disabled={evaluation.state === "Completed"}
+                    >
+                      Auto Sign
+                    </StyledButton>
+                    <StyledButton
+                      variant="contained"
+                      color="primary"
+                      onClick={() =>
+                        handleDownload(
+                          evaluation.contractnum,
+                          evaluation.training_name,
+                          evaluation.staff_name
+                        )
+                      }
+                      disabled={evaluation.state === "Pending"}
+                    >
+                      Download
+                    </StyledButton>
+                  </StyledTableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
+      </MainLayout>
+    </ThemeProvider>
   );
 }

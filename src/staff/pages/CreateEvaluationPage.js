@@ -1,12 +1,36 @@
 import React from "react";
 import EvaluationField from "../components/EvaluationField";
 import TrainingDetails from "../components/TrainingDetails";
-import { Button } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
+import { createTheme, styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../../common/MainLayout";
 import SignatureBox from "../components/SignatureBox";
 
-const WriteEvaluation = () => {
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#0063F7",
+    },
+  },
+});
+
+const StyledContainer = styled("div")({
+  margin: "20px",
+});
+
+const StyledTextRight = styled("div")({
+  textAlign: "left",
+  marginBottom: "20px",
+});
+
+const StyledButton = styled(Button)({
+  marginLeft: "15px",
+  marginTop: "5px",
+  fontSize: "12px",
+});
+
+const CreateEvaluation = () => {
   const navigate = useNavigate();
 
   const generateXLXS = async () => {
@@ -81,25 +105,26 @@ const WriteEvaluation = () => {
   };
 
   return (
-    <MainLayout>
-      <div className="container">
-        <TrainingDetails />
-        <EvaluationField />
-        <SignatureBox />
-      </div>
+    <ThemeProvider theme={defaultTheme}>
+      <MainLayout>
+        <StyledContainer>
+          <TrainingDetails />
+          <EvaluationField />
+          <SignatureBox />
+        </StyledContainer>
 
-      <div className="text-right mb-3">
-        <Button
-          style={{ marginLeft: "15px", marginTop: "5px", fontSize: "12px" }}
-          variant="contained"
-          color="primary"
-          onClick={generateXLXS}
-        >
-          Create
-        </Button>
-      </div>
-    </MainLayout>
+        <StyledTextRight>
+          <StyledButton
+            variant="contained"
+            color="primary"
+            onClick={generateXLXS}
+          >
+            Create
+          </StyledButton>
+        </StyledTextRight>
+      </MainLayout>
+    </ThemeProvider>
   );
 };
 
-export default WriteEvaluation;
+export default CreateEvaluation;

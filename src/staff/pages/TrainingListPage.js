@@ -9,8 +9,26 @@ import {
   Paper,
   TableBody,
   Button,
+  ThemeProvider,
 } from "@mui/material";
+import { createTheme, styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+
+const defaultTheme = createTheme();
+
+const StyledTableContainer = styled(TableContainer)({
+  marginTop: "20px",
+});
+
+const StyledTableCell = styled(TableCell)({
+  borderTop: "1px solid",
+  borderBottom: "1px solid",
+  textAlign: "center",
+});
+
+const StyledButton = styled(Button)({
+  margin: "5px",
+});
 
 export default function TrainingListPage() {
   const [trainingsData, setTrainingsData] = useState([]);
@@ -45,104 +63,65 @@ export default function TrainingListPage() {
   };
 
   return (
-    <MainLayout>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
+    <ThemeProvider theme={defaultTheme}>
+      <MainLayout>
+        <StyledTableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow
+                style={{ borderTop: "2px solid", borderBottom: "2px solid" }}
               >
-                ID
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Title
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Trainer
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Date
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Venue
-              </TableCell>
-              <TableCell
-                style={{
-                  borderTop: "2px solid",
-                  borderBottom: "2px solid",
-                  padding: "0 20px",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Actions
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {trainingsData.map((training, index) => (
-              <TableRow key={training.training_id}>
-                <TableCell style={{ textAlign: "center" }}>
-                  {training.training_id}
-                </TableCell>
-                <TableCell>{training.title}</TableCell>
-                <TableCell>{training.trainer}</TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  {formatDate(training.training_datetime)}
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  {training.venue}
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    component={Link}
-                    to={`/staff/create/`}
-                    onClick={() => handleSaveTrainingDetails(training)}
-                  >
-                    Create Evaluation
-                  </Button>
-                </TableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  ID
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Title
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Trainer
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Date
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Venue
+                </StyledTableCell>
+                <StyledTableCell style={{ fontWeight: "bold" }}>
+                  Actions
+                </StyledTableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </MainLayout>
+            </TableHead>
+            <TableBody>
+              {trainingsData.map((training, index) => (
+                <TableRow key={training.training_id}>
+                  <StyledTableCell style={{ textAlign: "center" }}>
+                    {training.training_id}
+                  </StyledTableCell>
+                  <StyledTableCell>{training.title}</StyledTableCell>
+                  <StyledTableCell>{training.trainer}</StyledTableCell>
+                  <StyledTableCell style={{ textAlign: "center" }}>
+                    {formatDate(training.training_datetime)}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ textAlign: "center" }}>
+                    {training.venue}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ textAlign: "center" }}>
+                    <StyledButton
+                      variant="contained"
+                      color="primary"
+                      component={Link}
+                      to={`/staff/create/`}
+                      onClick={() => handleSaveTrainingDetails(training)}
+                    >
+                      Create Evaluation
+                    </StyledButton>
+                  </StyledTableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
+      </MainLayout>
+    </ThemeProvider>
   );
 }

@@ -74,106 +74,109 @@ const EvaluationField = () => {
       >
         Training Evaluation Form
       </Typography>
+      <div style={{ paddingLeft: "10px" }}>
+        <div>
+          <Typography>
+            1. How would you rate the relevancy of the training content and your
+            current role?
+          </Typography>
+          <Rating
+            name="rating_1"
+            value={rating_1}
+            style={{ marginLeft: "15px" }}
+            onChange={(event, newRating_1) => {
+              setRating_1(newRating_1);
+            }}
+          />
+        </div>
 
-      <div>
-        <Typography>
-          1. How would you rate the relevancy of the training content and your
-          current role?
-        </Typography>
-        <Rating
-          name="rating_1"
-          value={rating_1}
-          style={{ marginLeft: "15px" }}
-          onChange={(event, newRating_1) => {
-            setRating_1(newRating_1);
-          }}
-        />
-      </div>
+        <div>
+          <Typography>
+            2. How would you rate the presentation about the topic and content?
+            (Eg. clear, guided, interactive)
+          </Typography>
+          <Rating
+            name="rating_2"
+            value={rating_2}
+            style={{ marginLeft: "15px" }}
+            onChange={(event, newRating_2) => {
+              setRating_2(newRating_2);
+            }}
+          />
+        </div>
 
-      <div>
-        <Typography>
-          2. How would you rate the presentation about the topic and content?
-          (Eg. clear, guided, interactive)
-        </Typography>
-        <Rating
-          name="rating_2"
-          value={rating_2}
-          style={{ marginLeft: "15px" }}
-          onChange={(event, newRating_2) => {
-            setRating_2(newRating_2);
-          }}
-        />
-      </div>
+        <div>
+          <Typography>
+            3. How would you rate the overall experience of the training? (Eg:
+            venue, material, or visual aid.)
+          </Typography>
+          <Rating
+            name="rating_3"
+            value={rating_3}
+            style={{ marginLeft: "15px" }}
+            onChange={(event, newRating_3) => {
+              setRating_3(newRating_3);
+            }}
+          />
+        </div>
 
-      <div>
-        <Typography>
-          3. How would you rate the overall experience of the training? (Eg:
-          venue, material, or visual aid.)
-        </Typography>
-        <Rating
-          name="rating_3"
-          value={rating_3}
-          style={{ marginLeft: "15px" }}
-          onChange={(event, newRating_3) => {
-            setRating_3(newRating_3);
-          }}
-        />
-      </div>
+        <div>
+          <Typography>
+            4. How do you rate the duration of the training?
+          </Typography>
+          <Rating
+            name="rating_4"
+            value={rating_4}
+            style={{ marginLeft: "15px" }}
+            onChange={(event, newRating_4) => {
+              setRating_4(newRating_4);
+            }}
+          />
+        </div>
 
-      <div>
-        <Typography>
-          4. How do you rate the duration of the training?
-        </Typography>
-        <Rating
-          name="rating_4"
-          value={rating_4}
-          style={{ marginLeft: "15px" }}
-          onChange={(event, newRating_4) => {
-            setRating_4(newRating_4);
-          }}
-        />
-      </div>
+        <div>
+          <Typography>
+            5. How to apply the knowledge/skills gained during the training in
+            your current job?
+          </Typography>
+          <TextField
+            name="rating_text_5"
+            multiline
+            rows={3}
+            fullWidth
+            value={rating_text_5}
+            onChange={handleSetRatingText_5}
+          />
+        </div>
 
-      <div>
-        <Typography>
-          5. How to apply the knowledge/skills gained during the training in
-          your current job?
-        </Typography>
-        <TextField
-          name="rating_text_5"
-          multiline
-          rows={3}
-          fullWidth
-          value={rating_text_5}
-          onChange={handleSetRatingText_5}
-        />
-      </div>
+        <div>
+          <Typography>
+            6. Please provide general comment about the training.
+          </Typography>
+          <TextField
+            name="rating_text_6"
+            multiline
+            rows={3}
+            fullWidth
+            value={rating_text_6}
+            onChange={handleSetRatingText_6}
+          />
+        </div>
 
-      <div>
-        <Typography>
-          6. Please provide general comment about the training.
-        </Typography>
-        <TextField
-          name="rating_text_6"
-          multiline
-          rows={3}
-          fullWidth
-          value={rating_text_6}
-          onChange={handleSetRatingText_6}
-        />
-      </div>
-
-      <div>
-        <Typography>7. Would you recommend the training to others?</Typography>
-        <RadioGroup
-          row
-          name="value7"
-          value={rating_7}
-          onChange={handleSetRating_7}
-        >
-          <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-          <FormControlLabel value="No" control={<Radio />} label="No" />
-        </RadioGroup>
+        <div>
+          <Typography>
+            7. Would you recommend the training to others?
+          </Typography>
+          <RadioGroup
+            row
+            name="value7"
+            value={rating_7}
+            onChange={handleSetRating_7}
+          >
+            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="No" control={<Radio />} label="No" />
+          </RadioGroup>
+        </div>
       </div>
     </Paper>
   );
