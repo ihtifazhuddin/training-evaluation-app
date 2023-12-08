@@ -57,9 +57,9 @@ export const DownloadDocument = async () => {
 
     // Handle the response
     if (responseData.result === 0) {
-      console.log("Successfully get data stream byte");
       handleDownload(responseData.data);
     } else {
+      console.log("result: ", responseData.result);
       console.error("Fail to get data stream byte");
     }
   } catch (error) {

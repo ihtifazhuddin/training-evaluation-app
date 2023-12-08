@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import MainLayout from "../../common/MainLayout";
+import TrainingDetails from "../components/TrainingDetails";
+import EvaluationField from "../components/EvaluationField";
+import SignatureBox from "../components/SignatureBox";
+// import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import {
   Button,
@@ -10,14 +14,6 @@ import {
   DialogActions,
 } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
-import MainLayout from "../../common/MainLayout";
-import TrainingDetails from "../components/TrainingDetails";
-import EvaluationField from "../components/EvaluationField";
-import SignatureBox from "../components/SignatureBox";
-// import submitEvaluation from "./ReviewDocumentPage";
-import UploadDocument from "../../components/UploadDocument";
-import AddEvaluation from "../../components/AddEvaluation";
-import AutoSign from "../../components/AutoSign";
 
 const defaultTheme = createTheme({
   palette: {
@@ -43,7 +39,7 @@ const StyledButton = styled(Button)({
 });
 
 const CreateEvaluation = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const componentRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [imgDataHtml, setImgDataHtml] = useState("");
@@ -119,20 +115,6 @@ const CreateEvaluation = () => {
     }
   };
 
-  const submitEvaluation = async () => {
-    try {
-      await UploadDocument(); // Wait for UploadDocument to complete
-
-      await AddEvaluation(); // Wait for AddEvaluation to complete
-
-      await AutoSign(); // Wait for AutoSign to complete
-
-      navigate("/staff/evaluations");
-    } catch (error) {
-      console.error("Error submitting evaluation:", error);
-    }
-  };
-
   const handlePreview = async () => {
     const input = componentRef.current;
 
@@ -152,12 +134,7 @@ const CreateEvaluation = () => {
   const handleSubmit = async () => {
     // some code here
     console.log("Submit button clicked");
-    try {
-      await generateXLXS();
-      await submitEvaluation();
-    } catch (error) {
-      console.error("Error during submission:", error);
-    }
+    generateXLXS();
   };
 
   return (

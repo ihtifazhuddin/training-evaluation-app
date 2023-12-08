@@ -60,9 +60,10 @@ export default function EvaluationListPage() {
     localStorage.setItem("contractnum", contractnum);
     localStorage.setItem("training_name", training_name);
     localStorage.setItem("staff_name", staff_name);
-    console.log("Downloading...");
     DownloadDocument()
-      .then()
+      .then(() => {
+        console.log("Download successful");
+      })
       .catch((error) => {
         console.error("Error during download:", error);
       });

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress"; // Added import
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -15,6 +16,7 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // Added state for loading
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -38,6 +40,11 @@ export default function SignIn() {
     event.preventDefault();
 
     try {
+      setLoading(true); // Set loading to true when submitting the form
+
+      // Simulate delay for login
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       // Send username and password to backend for login
       const loginResponse = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
@@ -111,6 +118,8 @@ export default function SignIn() {
     } catch (error) {
       console.error("Unexpected error:", error);
       showNotification("Unexpected error occurred");
+    } finally {
+      setLoading(false); // Set loading to false after the form submission is completed
     }
   };
 
@@ -165,8 +174,10 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading} // Disable the button when loading is true
             >
-              Sign In
+              {loading ? <CircularProgress size={24} /> : "Sign In"}
+              {/* Show loading indicator when loading is true */}
             </Button>
           </Box>
           {error && <div style={{ color: "red" }}>{error}</div>}

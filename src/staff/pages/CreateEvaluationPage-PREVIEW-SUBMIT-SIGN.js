@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import html2canvas from "html2canvas";
+import {
+  Button,
+  ThemeProvider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import { createTheme, styled } from "@mui/material/styles";
 import MainLayout from "../../common/MainLayout";
 import TrainingDetails from "../components/TrainingDetails";
 import EvaluationField from "../components/EvaluationField";
 import SignatureBox from "../components/SignatureBox";
-import { DisplayPreview } from "../../components/DisplayPreview";
-import { SubmitEvaluation } from "../../components/SubmitEvaluation";
-// import { useNavigate } from "react-router-dom";
-import { Button, ThemeProvider } from "@mui/material";
-import { createTheme, styled } from "@mui/material/styles";
+// import submitEvaluation from "./ReviewDocumentPage";
+import UploadDocument from "../../components/UploadDocument";
+import AddEvaluation from "../../components/AddEvaluation";
+import AutoSign from "../../components/AutoSign";
 
 const defaultTheme = createTheme({
   palette: {
@@ -33,7 +43,10 @@ const StyledButton = styled(Button)({
 });
 
 const CreateEvaluation = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const componentRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [imgDataHtml, setImgDataHtml] = useState("");
 
   const generateXLXS = async () => {
     const staff_name = localStorage.getItem("staff_name");
@@ -106,23 +119,51 @@ const CreateEvaluation = () => {
     }
   };
 
-  const handlePreview = async () => {
+  const submitEvaluation = async () => {
     try {
-      await DisplayPreview();
-    } catch (error) {}
+      await UploadDocument(); // Wait for UploadDocument to complete
+
+      await AddEvaluation(); // Wait for AddEvaluation to complete
+
+      await AutoSign(); // Wait for AutoSign to complete
+
+      navigate("/staff/evaluations");
+    } catch (error) {
+      console.error("Error submitting evaluation:", error);
+    }
+  };
+
+  const handlePreview = async () => {
+    const input = componentRef.current;
+
+    if (input) {
+      const canvas = await html2canvas(input);
+      const imgData = canvas.toDataURL("image/png");
+      const imgDataHtml = `<html><body><img src="${imgData}" width="100%" height="100%"></body></html>`;
+      setImgDataHtml(imgDataHtml);
+      setOpen(true);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleSubmit = async () => {
+    // some code here
+    console.log("Submit button clicked");
     try {
       await generateXLXS();
-      await SubmitEvaluation();
-    } catch (error) {}
+      await submitEvaluation();
+    } catch (error) {
+      console.error("Error during submission:", error);
+    }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <MainLayout>
-        <StyledContainer>
+        <StyledContainer ref={componentRef}>
           <TrainingDetails />
           <EvaluationField />
           <SignatureBox />
@@ -136,6 +177,22 @@ const CreateEvaluation = () => {
           >
             Preview
           </StyledButton>
+          {imgDataHtml ? (
+            <Dialog open={open} onClose={handleClose} fullScreen>
+              <DialogTitle>Preview</DialogTitle>
+              <DialogContent>
+                <iframe
+                  srcDoc={imgDataHtml}
+                  title="Generated Preview"
+                  width="100%"
+                  height="100%"
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Close</Button>
+              </DialogActions>
+            </Dialog>
+          ) : null}
           <StyledButton
             variant="contained"
             color="primary"
