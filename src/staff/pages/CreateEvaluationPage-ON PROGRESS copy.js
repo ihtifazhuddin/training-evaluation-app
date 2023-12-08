@@ -1,18 +1,12 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import MainLayout from "../../common/MainLayout";
 import TrainingDetails from "../components/TrainingDetails";
 import EvaluationField from "../components/EvaluationField";
 import SignatureBox from "../components/SignatureBox";
+import { DisplayPreview } from "../../components/DisplayPreview";
+import { SubmitEvaluation } from "../../components/SubmitEvaluation";
 // import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-import {
-  Button,
-  ThemeProvider,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
 
 const defaultTheme = createTheme({
@@ -40,9 +34,6 @@ const StyledButton = styled(Button)({
 
 const CreateEvaluation = () => {
   // const navigate = useNavigate();
-  const componentRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const [imgDataHtml, setImgDataHtml] = useState("");
 
   const generateXLXS = async () => {
     const staff_name = localStorage.getItem("staff_name");
@@ -116,31 +107,22 @@ const CreateEvaluation = () => {
   };
 
   const handlePreview = async () => {
-    const input = componentRef.current;
-
-    if (input) {
-      const canvas = await html2canvas(input);
-      const imgData = canvas.toDataURL("image/png");
-      const imgDataHtml = `<html><body><img src="${imgData}" width="100%" height="100%"></body></html>`;
-      setImgDataHtml(imgDataHtml);
-      setOpen(true);
-    }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+    try {
+      await DisplayPreview();
+    } catch (error) {}
   };
 
   const handleSubmit = async () => {
-    // some code here
-    console.log("Submit button clicked");
-    generateXLXS();
+    try {
+      await generateXLXS();
+      await SubmitEvaluation();
+    } catch (error) {}
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <MainLayout>
-        <StyledContainer ref={componentRef}>
+        <StyledContainer>
           <TrainingDetails />
           <EvaluationField />
           <SignatureBox />
@@ -154,22 +136,6 @@ const CreateEvaluation = () => {
           >
             Preview
           </StyledButton>
-          {imgDataHtml ? (
-            <Dialog open={open} onClose={handleClose} fullScreen>
-              <DialogTitle>Preview</DialogTitle>
-              <DialogContent>
-                <iframe
-                  srcDoc={imgDataHtml}
-                  title="Generated Preview"
-                  width="100%"
-                  height="100%"
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Close</Button>
-              </DialogActions>
-            </Dialog>
-          ) : null}
           <StyledButton
             variant="contained"
             color="primary"

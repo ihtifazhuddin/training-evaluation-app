@@ -1,19 +1,11 @@
-import React, { useRef, useState } from "react";
-import MainLayout from "../../common/MainLayout";
-import TrainingDetails from "../components/TrainingDetails";
+import React from "react";
 import EvaluationField from "../components/EvaluationField";
-import SignatureBox from "../components/SignatureBox";
-// import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-import {
-  Button,
-  ThemeProvider,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
+import TrainingDetails from "../components/TrainingDetails";
+import { Button, ThemeProvider } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import MainLayout from "../../common/MainLayout";
+import SignatureBox from "../components/SignatureBox";
 
 const defaultTheme = createTheme({
   palette: {
@@ -39,10 +31,7 @@ const StyledButton = styled(Button)({
 });
 
 const CreateEvaluation = () => {
-  // const navigate = useNavigate();
-  const componentRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const [imgDataHtml, setImgDataHtml] = useState("");
+  const navigate = useNavigate();
 
   const generateXLXS = async () => {
     const staff_name = localStorage.getItem("staff_name");
@@ -106,7 +95,7 @@ const CreateEvaluation = () => {
       if (responseData.result === "success") {
         console.log("API call successful:", responseData);
         localStorage.setItem("filename", responseData.data.filename);
-        // navigate("/staff/review");
+        navigate("/staff/review");
       } else {
         console.error("API call failed:", responseData);
       }
@@ -115,32 +104,10 @@ const CreateEvaluation = () => {
     }
   };
 
-  const handlePreview = async () => {
-    const input = componentRef.current;
-
-    if (input) {
-      const canvas = await html2canvas(input);
-      const imgData = canvas.toDataURL("image/png");
-      const imgDataHtml = `<html><body><img src="${imgData}" width="100%" height="100%"></body></html>`;
-      setImgDataHtml(imgDataHtml);
-      setOpen(true);
-    }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = async () => {
-    // some code here
-    console.log("Submit button clicked");
-    generateXLXS();
-  };
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <MainLayout>
-        <StyledContainer ref={componentRef}>
+        <StyledContainer>
           <TrainingDetails />
           <EvaluationField />
           <SignatureBox />
@@ -150,32 +117,9 @@ const CreateEvaluation = () => {
           <StyledButton
             variant="contained"
             color="primary"
-            onClick={() => handlePreview()}
+            onClick={generateXLXS}
           >
-            Preview
-          </StyledButton>
-          {imgDataHtml ? (
-            <Dialog open={open} onClose={handleClose} fullScreen>
-              <DialogTitle>Preview</DialogTitle>
-              <DialogContent>
-                <iframe
-                  srcDoc={imgDataHtml}
-                  title="Generated Preview"
-                  width="100%"
-                  height="100%"
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Close</Button>
-              </DialogActions>
-            </Dialog>
-          ) : null}
-          <StyledButton
-            variant="contained"
-            color="primary"
-            onClick={() => handleSubmit()}
-          >
-            Submit and Sign
+            Create
           </StyledButton>
         </StyledTextRight>
       </MainLayout>

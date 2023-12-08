@@ -16,6 +16,8 @@ import ReviewDocument from "./staff/pages/ReviewDocumentPage";
 import EvaluationListPage2 from "./hr/pages/EvaluationListPage";
 
 // test
+import DownloadDocument from "./test-files/TESTdownloadpdf";
+import PdfViewer from "./test-files/TEST-preview-pdf";
 
 const App = () => {
   useEffect(() => {
@@ -37,7 +39,10 @@ const App = () => {
 
         {/* HR pages */}
         <Route path="/hr/evaluations" element={<EvaluationListPage2 />} />
-        {/* <Route path="/test/" element={<DownloadDocument />} /> */}
+
+        {/* Test page */}
+        <Route path="/test/" element={<DownloadDocument />} />
+        <Route path="/test2/" element={<PdfViewer />} />
       </Routes>
     </Router>
   );
