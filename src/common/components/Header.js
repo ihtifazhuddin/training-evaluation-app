@@ -10,13 +10,11 @@ const defaultTheme = createTheme();
 const StyledButton = styled(Button)({
   color: "white",
   marginLeft: "20px",
-});
-
-const StyledIconButton = styled(Button)({
-  fontSize: "13px",
-  color: "white",
+  fontSize: "15px",
+  fontWeight: "bold",
   borderColor: "white",
-  marginLeft: "15px",
+  borderRadius: "10px",
+  borderWidth: "1.5px",
 });
 
 const Header = () => {
@@ -44,9 +42,10 @@ const Header = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "20px",
+          padding: "10px",
           background: defaultTheme.palette.primary.main,
           width: "100%",
+          borderRadius: "8px",
         }}
       >
         <Typography
@@ -58,16 +57,32 @@ const Header = () => {
           Training Evaluation App
         </Typography>
 
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           {menuItems.map((item, index) => (
-            <StyledButton key={index} component={Link} to={item.link}>
+            <StyledButton
+              variant="outlined"
+              key={index}
+              component={Link}
+              to={item.link}
+            >
               {item.text}
             </StyledButton>
           ))}
-          <StyledIconButton onClick={handleSignOut} variant="outlined">
-            <span style={{ marginRight: "8px" }}>Sign Out</span>
-            <ExitToAppIcon />
-          </StyledIconButton>
+        </div>
+        <div>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography fontWeight="bold" fontSize="16px" color="white">
+              (Logged in as <b>{current_user_role}</b>)
+            </Typography>
+            <Button onClick={handleSignOut} style={{ color: "white" }}>
+              <ExitToAppIcon fontSize="large" />
+            </Button>
+          </div>
         </div>
       </div>
     </ThemeProvider>

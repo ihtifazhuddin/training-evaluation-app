@@ -1,23 +1,23 @@
 import { React, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { fetchAccessToken } from "./components/AccessToken";
+import { fetchAccessToken } from "./common/functional-components/GetAccessToken";
 
 // Common pages
-import LoginPage from "./common/LoginPage";
-import NoPage from "./common/NoPage";
+import LoginPage from "./common/components/LoginPage";
+import NoPage from "./common/components/NoPage";
 
 // Staff pages
-import TrainingListPage from "./staff/pages/TrainingListPage";
-import EvaluationListPage from "./staff/pages/EvaluationListPage";
 import CreateEvaluationPage from "./staff/pages/CreateEvaluationPage";
-import ReviewDocument from "./staff/pages/ReviewDocumentPage";
+import EvaluationListPage from "./staff/pages/EvaluationListPage";
+import TrainingListPage from "./staff/pages/TrainingListPage";
+// import ReviewDocument from "./staff/pages/ReviewDocumentPage";
 
 // HR pages
-import EvaluationListPage2 from "./hr/pages/EvaluationListPage";
+import EvaluationListPageHR from "./hr/EvaluationListPage";
 
 // test
-import DownloadDocument from "./test-files/TESTdownloadpdf";
-import PdfViewer from "./test-files/TEST-preview-pdf";
+// import DownloadDocument from "./test-files/TESTdownloadpdf";
+// import PdfViewer from "./test-files/TEST-preview-pdf";
 
 const App = () => {
   useEffect(() => {
@@ -35,14 +35,14 @@ const App = () => {
         <Route path="/staff/trainings" element={<TrainingListPage />} />
         <Route path="/staff/evaluations" element={<EvaluationListPage />} />
         <Route path="/staff/create/" element={<CreateEvaluationPage />} />
-        <Route path="/staff/review" element={<ReviewDocument />} />
+        {/* <Route path="/staff/review" element={<ReviewDocument />} /> */}
 
         {/* HR pages */}
-        <Route path="/hr/evaluations" element={<EvaluationListPage2 />} />
+        <Route path="/hr/evaluations" element={<EvaluationListPageHR />} />
 
         {/* Test page */}
-        <Route path="/test/" element={<DownloadDocument />} />
-        <Route path="/test2/" element={<PdfViewer />} />
+        {/* <Route path="/test/" element={<DownloadDocument />} />
+        <Route path="/test2/" element={<PdfViewer />} /> */}
       </Routes>
     </Router>
   );

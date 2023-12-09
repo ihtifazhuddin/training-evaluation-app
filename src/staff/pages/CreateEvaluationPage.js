@@ -10,14 +10,14 @@ import {
   DialogActions,
 } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
-import MainLayout from "../../common/MainLayout";
-import TrainingDetails from "../components/TrainingDetails";
+import MainLayout from "../../common/components/MainLayout";
+import TrainingDetailsField from "../../staff/components/TrainingDetailsField";
 import EvaluationField from "../components/EvaluationField";
-import SignatureBox from "../components/SignatureBox";
+import SignatureField from "../../staff/components/SignatureField";
 // import submitEvaluation from "./ReviewDocumentPage";
-import UploadDocument from "../../components/UploadDocument";
-import AddEvaluation from "../../components/AddEvaluation";
-import AutoSign from "../../components/AutoSign";
+import UploadDocument from "../../common/functional-components/UploadDocument";
+import AddEvaluation from "../../common/functional-components/AddEvaluation";
+import AutoSign from "../../common/functional-components/AutoSign";
 
 const defaultTheme = createTheme({
   palette: {
@@ -127,6 +127,7 @@ const CreateEvaluation = () => {
 
       await AutoSign(); // Wait for AutoSign to complete
 
+      window.alert("Evaluation submitted and signed successfully!");
       navigate("/staff/evaluations");
     } catch (error) {
       console.error("Error submitting evaluation:", error);
@@ -164,9 +165,9 @@ const CreateEvaluation = () => {
     <ThemeProvider theme={defaultTheme}>
       <MainLayout>
         <StyledContainer ref={componentRef}>
-          <TrainingDetails />
+          <TrainingDetailsField />
           <EvaluationField />
-          <SignatureBox />
+          <SignatureField />
         </StyledContainer>
 
         <StyledTextRight>
@@ -179,7 +180,20 @@ const CreateEvaluation = () => {
           </StyledButton>
           {imgDataHtml ? (
             <Dialog open={open} onClose={handleClose} fullScreen>
-              <DialogTitle>Preview</DialogTitle>
+              <DialogTitle>
+                Preview <br />
+                <b
+                  style={{
+                    fontSize: "small",
+                    fontWeight: "lighter",
+                    fontStyle: "italic",
+                  }}
+                >
+                  (in some circumstances, the preview styling may differ. The
+                  most important thing is to kindly ensure that the content is
+                  correct.)
+                </b>
+              </DialogTitle>
               <DialogContent>
                 <iframe
                   srcDoc={imgDataHtml}

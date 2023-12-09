@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Button, CircularProgress, ThemeProvider } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import MainLayout from "../../common/MainLayout";
+import MainLayout from "../common/components/MainLayout";
 import ExcelPreview from "../../components/ExcelPreviewToBytes";
 import UploadDocument from "../../components/UploadDocument";
-import AddEvaluation from "../../components/AddEvaluation";
+import AddEvaluation from "../common/functional-components/AddEvaluation";
 import AutoSign from "../../components/AutoSign";
 
 const defaultTheme = createTheme({

@@ -7,7 +7,7 @@ import {
   TableCell,
   TableRow,
 } from "@mui/material";
-const TrainingDetails = () => {
+const TrainingDetailsField = () => {
   const staff_name = localStorage.getItem("staff_name");
   const staff_division = localStorage.getItem("staff_division");
   const training_title = localStorage.getItem("training_title");
@@ -74,4 +74,4 @@ const TrainingDetails = () => {
   );
 };
 
-export default TrainingDetails;
+export default TrainingDetailsField;

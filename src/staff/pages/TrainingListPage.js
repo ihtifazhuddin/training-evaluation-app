@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MainLayout from "../../common/MainLayout";
+import MainLayout from "../../common/components/MainLayout";
 import {
   Table,
   TableCell,
@@ -97,7 +97,9 @@ export default function TrainingListPage() {
                   <StyledTableCell style={{ textAlign: "center" }}>
                     {training.training_id}
                   </StyledTableCell>
-                  <StyledTableCell>{training.title}</StyledTableCell>
+                  <StyledTableCell style={{ textAlign: "left" }}>
+                    {training.title}
+                  </StyledTableCell>
                   <StyledTableCell>{training.trainer}</StyledTableCell>
                   <StyledTableCell style={{ textAlign: "center" }}>
                     {formatDate(training.training_datetime)}

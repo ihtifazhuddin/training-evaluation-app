@@ -1,11 +1,11 @@
 import React from "react";
-import EvaluationField from "../components/EvaluationField";
-import TrainingDetails from "../components/TrainingDetails";
+import EvaluationField from "../staff/components/EvaluationField";
+import TrainingDetails from "../staff/components/TrainingDetails";
 import { Button, ThemeProvider } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import MainLayout from "../../common/MainLayout";
-import SignatureBox from "../components/SignatureBox";
+import MainLayout from "../common/MainLayout";
+import SignatureBox from "../staff/components/SignatureBox";
 
 const defaultTheme = createTheme({
   palette: {

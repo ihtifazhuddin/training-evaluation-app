@@ -11,9 +11,11 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
-import MainLayout from "../../common/components/MainLayout";
-import { GetPreviewLink } from "../../common/functional-components/GetPreviewLink";
-import { DownloadDocument } from "../../common/functional-components/DownloadDocument";
+import MainLayout from "../common/components/MainLayout";
+import AutoSign from "../common/functional-components/AutoSign";
+import { UpdateEvaluation } from "../common/functional-components/UpdateEvaluation";
+import { GetPreviewLink } from "../common/functional-components/GetPreviewLink";
+import { DownloadDocument } from "../common/functional-components/DownloadDocument";
 import { Typography } from "antd";
 
 const defaultTheme = createTheme();
@@ -23,17 +25,13 @@ const StyledTableContainer = styled(TableContainer)({
 });
 
 const StyledTableCell = styled(TableCell)({
+  borderTop: "1px solid",
   borderBottom: "1px solid",
   textAlign: "center",
 });
 
 const StyledButton = styled(Button)({
   margin: "5px",
-});
-
-const StyledTableHeaderRow = styled(TableRow)({
-  borderTop: "2px solid",
-  borderBottom: "2px solid",
 });
 
 export default function EvaluationListPage() {
@@ -57,14 +55,28 @@ export default function EvaluationListPage() {
     });
   };
 
+  const handleAutoSign = (evaluation_id) => {
+    localStorage.setItem("evaluation_id", evaluation_id);
+    AutoSign()
+      .then(() => {
+        window.alert("Evaluation is approved");
+        UpdateEvaluation();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error("Error during auto sign:", error);
+      });
+  };
+
   const handleDownload = (contractnum, training_name, staff_name) => {
     localStorage.setItem("contractnum", contractnum);
     localStorage.setItem("training_name", training_name);
     localStorage.setItem("staff_name", staff_name);
+    console.log("Downloading...");
     DownloadDocument()
-      .then(() => {
-        console.log("Download successful");
-      })
+      .then()
       .catch((error) => {
         console.error("Error during download:", error);
       });
@@ -76,7 +88,9 @@ export default function EvaluationListPage() {
         <StyledTableContainer component={Paper}>
           <Table>
             <TableHead>
-              <StyledTableHeaderRow>
+              <TableRow
+                style={{ borderTop: "2px solid", borderBottom: "2px solid" }}
+              >
                 <StyledTableCell style={{ fontWeight: "bold" }}>
                   Evaluation ID
                 </StyledTableCell>
@@ -92,7 +106,7 @@ export default function EvaluationListPage() {
                 <StyledTableCell style={{ fontWeight: "bold" }}>
                   Actions
                 </StyledTableCell>
-              </StyledTableHeaderRow>
+              </TableRow>
             </TableHead>
             <TableBody>
               {evaluationData.length === 0 ? (
@@ -141,6 +155,14 @@ export default function EvaluationListPage() {
                         }
                       >
                         View
+                      </StyledButton>
+                      <StyledButton
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleAutoSign(evaluation.evaluation_id)}
+                        disabled={evaluation.state === "Completed"}
+                      >
+                        Approve
                       </StyledButton>
                       <StyledButton
                         variant="contained"

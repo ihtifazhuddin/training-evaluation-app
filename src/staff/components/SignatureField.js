@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const SignatureBox = () => {
+const SignatureField = () => {
   const staff_name = localStorage.getItem("staff_name");
   const staff_role = localStorage.getItem("staff_role");
   const hr_name = localStorage.getItem("hr_name");
@@ -69,4 +69,4 @@ const SignatureBox = () => {
   );
 };
 
-export default SignatureBox;
+export default SignatureField;

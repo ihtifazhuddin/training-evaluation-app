@@ -10,14 +10,14 @@ import {
   DialogActions,
 } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
-import MainLayout from "../../common/MainLayout";
-import TrainingDetails from "../components/TrainingDetails";
-import EvaluationField from "../components/EvaluationField";
-import SignatureBox from "../components/SignatureBox";
+import MainLayout from "../common/MainLayout";
+import TrainingDetails from "../staff/components/TrainingDetails";
+import EvaluationField from "../staff/components/EvaluationField";
+import SignatureBox from "../staff/components/SignatureBox";
 // import submitEvaluation from "./ReviewDocumentPage";
-import UploadDocument from "../../components/UploadDocument";
-import AddEvaluation from "../../components/AddEvaluation";
-import AutoSign from "../../components/AutoSign";
+import UploadDocument from "../functional-components/UploadDocument";
+import AddEvaluation from "../functional-components/AddEvaluation";
+import AutoSign from "../functional-components/AutoSign";
 
 const defaultTheme = createTheme({
   palette: {
