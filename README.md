@@ -1,11 +1,12 @@
 # Training Evaluation App
 
 [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
+[![Material UI](https://img.shields.io/badge/Material%20UI-5.14.20-blueviolet.svg)](https://mui.com/)
 [![Python](https://img.shields.io/badge/Python-3.x-green.svg)](https://www.python.org/)
 
 ## Description
 
-The Training Evaluation App is a simple app designed to showcase the use of digital signatures in the document flow, specifically in the context of employee training evaluations.
+The Training Evaluation App is a simple app designed to showcase the use of digital signatures in the document flow, specifically in the context of staff training evaluations.
 
 ## Features
 
@@ -32,6 +33,24 @@ The Training Evaluation App is a simple app designed to showcase the use of digi
 3. Connect to the MySQL database using DataGrip or your preferred DBMS.
 4. Open the backend code in your IDE (e.g., PyCharm) and run `server.py`.
 5. Open the frontend code in your IDE, open the terminal, and run `npm install` followed by `npm start`.
+
+## Code Organization
+
+The project is structured as follows:
+
+- `src/`: This directory contains all the source code for the project.
+
+  - `App.js`: This is the main entry point of the application. It sets up the React Router and defines the routes for the application. Each route corresponds to a different page in the application.
+  - `common/`: This directory contains the components that are common to all users.
+    - `components`: This directory contains layout such as main layout and header, and pages like login page and 404 page.
+    - `functional-components`: This directory contains all functional components to call API from server.
+  - `hr/`: This directory contains the pages that are only accessible to HR users. Currently, this includes the HR evaluation list page.
+  - `staff/`: This directory contains the component that are only accessible to staff users.
+    - `components`: This directory contains page components that are specific for staff process.
+    - `pages`: This directory contains the training list page, the evaluation list page, and the evaluation creation page.
+  - `test-files/`: This directory contains the tests or draft codes for the project.
+
+- `package.json`: This file lists the project dependencies and scripts.
 
 ## Usage
 
