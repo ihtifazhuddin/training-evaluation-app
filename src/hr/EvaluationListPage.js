@@ -55,8 +55,9 @@ export default function EvaluationListPage() {
     });
   };
 
-  const handleAutoSign = (evaluation_id) => {
+  const handleAutoSign = (evaluation_id, contractnum) => {
     localStorage.setItem("evaluation_id", evaluation_id);
+    localStorage.setItem("contractnum", contractnum);
     AutoSign()
       .then(() => {
         window.alert("Evaluation is approved");
@@ -159,7 +160,12 @@ export default function EvaluationListPage() {
                       <StyledButton
                         variant="contained"
                         color="primary"
-                        onClick={() => handleAutoSign(evaluation.evaluation_id)}
+                        onClick={() =>
+                          handleAutoSign(
+                            evaluation.evaluation_id,
+                            evaluation.contractnum
+                          )
+                        }
                         disabled={evaluation.state === "Completed"}
                       >
                         Approve
