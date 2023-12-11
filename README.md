@@ -62,6 +62,40 @@ The project is structured as follows:
 
 SigningCloud Sdn. Bhd. organizes several internal training sessions. After each training, employees are required to fill in evaluation forms to provide feedback to the organizer and trainer. To streamline the evaluation process and avoid burdensome email communications, the Training Evaluation App allows for effective process of the evaluation flow. The use of digital signatures ensures that documents are legally signed by both staff and HR which also demonstrate the versatility of digital signatures in various scenarios.
 
+## Screenshots
+
+Here are some screenshots of the application:
+
+### Login Page
+
+![Login Page](./screenshots/login.png)
+
+This is the page where users can log in to the app using their credentials.
+
+### Training List Page
+
+![Staff Evaluation Page](./screenshots/trainings.png)
+
+This is the page where staff members can view list and select training sessions.
+
+### Evaluation Page
+
+![Evaluation Page](./screenshots/evaluation.png)
+
+This is the page where staff members can view list and select training sessions.
+
+### View Evaluation
+
+![View Evaluation](./screenshots/view-evaluation.png)
+
+This is when staff or HR view the ongoing or completed evaluation document.
+
+### HR Approval Page
+
+![HR Approval Page](./screenshots/hr-approval.png)
+
+This is the page where HR can view the list of submitted evaluations and approve them.
+
 ## Contributing
 
 This app is maintained and developed by the creator and is not open for external contributions.
