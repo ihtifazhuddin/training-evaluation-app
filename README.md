@@ -8,14 +8,6 @@
 
 The Training Evaluation App is a simple app designed to showcase the use of digital signatures in the document flow, specifically in the context of staff training evaluations.
 
-## Features
-
-- Staff can log in and view a list of training sessions conducted by the company.
-- Staff can select a training session, fill out the evaluation form, and submit it to the system with a digital signature.
-- Evaluations are sent to the respective HR for approval.
-- HR can log in to view a list of evaluations submitted by staff and approve them with digital signature.
-- Both staff and HR can view and download the evaluation document.
-
 ## Installation
 
 ### Prerequisites
@@ -34,6 +26,20 @@ The Training Evaluation App is a simple app designed to showcase the use of digi
 4. Open the backend code in your IDE (e.g., PyCharm) and run `server.py`.
 5. Open the frontend code in your IDE, open the terminal, and run `npm install` followed by `npm start`.
 
+## Usage
+
+1. Log in as a staff member to view and evaluate training sessions.
+2. Submit the evaluation with a digital signature.
+3. Log in as an HR member to view and approve evaluations with a digital signature.
+
+## Features
+
+- Staff can log in and view a list of training sessions conducted by the company.
+- Staff can select a training session, fill out the evaluation form, and submit it to the system with a digital signature.
+- Evaluations are sent to the respective HR for approval.
+- HR can log in to view a list of evaluations submitted by staff and approve them with digital signature.
+- Both staff and HR can view and download the evaluation document.
+
 ## Code Organization
 
 The project is structured as follows:
@@ -51,12 +57,6 @@ The project is structured as follows:
   - `test-files/`: This directory contains the tests or draft codes for the project.
 
 - `package.json`: This file lists the project dependencies and scripts.
-
-## Usage
-
-1. Log in as a staff member to view and evaluate training sessions.
-2. Submit the evaluation with a digital signature.
-3. Log in as an HR member to view and approve evaluations with a digital signature.
 
 ## Use Case
 
