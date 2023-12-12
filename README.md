@@ -68,31 +68,32 @@ Here are some screenshots of the application:
 
 ### Login Page
 
-![Login Page](./screenshots/login.png)
+<img src="./screenshots/login.png" alt="Staff Evaluation Page" width="600px" height="500px">
 
 This is the page where users can log in to the app using their credentials.
 
 ### Training List Page
 
-![Staff Evaluation Page](./screenshots/trainings.png)
+<img src="./screenshots/trainings.png" alt="Staff Evaluation Page" width="800px">
 
 This is the page where staff members can view list and select training sessions.
 
 ### Evaluation Page
 
-![Evaluation Page](./screenshots/evaluation.png)
+<img src="./screenshots/evaluation.png" alt="Staff Evaluation Page" width="800px">
 
 This is the page where staff members can view list and select training sessions.
 
 ### View Evaluation
 
-![View Evaluation](./screenshots/view-evaluation.png)
+<!-- ![View Evaluation](./screenshots/view-evaluation.png) -->
+<img src="./screenshots/view-evaluation.png" alt="Staff Evaluation Page" width="800px">
 
 This is when staff or HR view the ongoing or completed evaluation document.
 
 ### HR Approval Page
 
-![HR Approval Page](./screenshots/hr-approval.png)
+<img src="./screenshots/hr-approval.png" alt="Staff Evaluation Page" width="800px">
 
 This is the page where HR can view the list of submitted evaluations and approve them.
 
