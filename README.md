@@ -21,10 +21,11 @@ The Training Evaluation App is a simple app designed to showcase the use of digi
 ### Steps
 
 1. Clone the repository: `git clone ihtifazhuddin/training-evaluation-app`
-2. Set up the MySQL server using Docker: `docker-compose up`
+2. Set up the MySQL server using Docker: `docker-compose up` which located in back-end folder.
 3. Connect to the MySQL database using DataGrip or your preferred DBMS.
-4. Open the backend code in your IDE (e.g., PyCharm) and run `server.py`.
-5. Open the frontend code in your IDE, open the terminal, and run `npm install` followed by `npm start`.
+4. Import the database by using mysqldump, import the file `import-with-mysqldump.sql`
+5. Open the backend code in your IDE (e.g., PyCharm) and run `server.py`.
+6. Open the frontend code in your IDE, open the terminal, and run `npm install` followed by `npm start`.
 
 ## Usage
 
